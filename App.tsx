@@ -60,14 +60,14 @@ function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+    backgroundColor: Colors.darker,
     flex: 1,
   };
 
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+        barStyle={'light-content'}
         backgroundColor={backgroundStyle.backgroundColor}
       />
       <ScrollView
@@ -75,6 +75,9 @@ function App(): React.JSX.Element {
         style={backgroundStyle}>
         <Home />
       </ScrollView>
+      <View style={{marginBottom: 5, alignSelf: 'center'}}>
+        <Text>Made with 💛 by Keshav</Text>
+      </View>
     </SafeAreaView>
   );
 }

@@ -30,12 +30,12 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 8,
     backgroundColor: '#333',
-    borderColor: '#e74c3c',
+    borderColor: '#c9b6fc',
     borderWidth: 2,
   },
   header: {
     borderBottomWidth: 1,
-    borderBottomColor: '#e74c3c',
+    borderBottomColor: '#c9b6fc',
     paddingBottom: 5,
   },
   conIdText: {

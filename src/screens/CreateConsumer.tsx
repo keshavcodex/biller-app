@@ -1,6 +1,6 @@
 import {View, Text, StyleSheet} from 'react-native';
 import React, {useState} from 'react';
-import {Button, TextInput} from 'react-native-paper';
+import {ActivityIndicator, Button, TextInput} from 'react-native-paper';
 import {addConsumer} from '../services/apiActions';
 
 const CreateConsumer = () => {
@@ -8,14 +8,23 @@ const CreateConsumer = () => {
   const [bill, setBill] = useState('');
   const [LK, setLK] = useState('');
   const [name, setName] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleCreateConsumer = async () => {
+    setIsLoading(true);
     const body = {conId, bill, LK, name};
-    console.log('body', body);
     try {
       const response = await addConsumer(body);
+      if (response?.data) {
+        setConId('');
+        setBill('');
+        setLK('');
+        setName('');
+      }
+      setIsLoading(false);
     } catch (error) {
       console.log(error);
+      setIsLoading(false);
     }
   };
 
@@ -30,7 +39,7 @@ const CreateConsumer = () => {
           marginVertical: 30,
         }}>
         <TextInput
-          style={styles.newConsumerInput}
+          style={styles.input}
           placeholder="Consumer Id"
           value={conId}
           onChangeText={setConId}
@@ -41,16 +50,17 @@ const CreateConsumer = () => {
             flex: 1,
             flexDirection: 'row',
             justifyContent: 'space-between',
+            marginHorizontal: 5,
           }}>
           <TextInput
-            style={styles.halfSizeInput}
+            style={styles.halfInput}
             placeholder="Bill"
             value={bill}
             onChangeText={setBill}
             keyboardType="numeric"
           />
           <TextInput
-            style={styles.halfSizeInput}
+            style={styles.halfInput}
             placeholder="LK"
             value={LK}
             onChangeText={setLK}
@@ -58,21 +68,27 @@ const CreateConsumer = () => {
           />
         </View>
         <TextInput
-          style={styles.newConsumerInput}
+          style={styles.input}
           placeholder="Name"
           value={name}
           onChangeText={setName}
-          keyboardType="numeric"
+          keyboardType="default"
         />
       </View>
-      <Button
-        icon="plus"
-        mode="contained-tonal"
-        style={{height: 44, borderRadius: 50}}
-        labelStyle={{fontSize: 18}}
-        onPress={() => handleCreateConsumer}>
-        Add Consumer
-      </Button>
+      {isLoading ? (
+        <ActivityIndicator animating={true} color={'#7154bf'} size={40} />
+      ) : (
+        <Button
+          icon="plus"
+          mode="contained-tonal"
+          style={styles.button}
+          labelStyle={{
+            fontSize: 18,
+          }}
+          onPress={handleCreateConsumer}>
+          Add Consumer
+        </Button>
+      )}
     </View>
   );
 };
@@ -87,26 +103,23 @@ const styles = StyleSheet.create({
     height: 60,
     color: '#fff',
     borderColor: 'gray',
-    borderWidth: 1,
+    borderBottomWidth: 1,
+    margin: 5,
+    fontSize: 20,
+  },
+  halfInput: {
+    height: 60,
+    color: '#fff',
+    width: '48%',
+    borderColor: 'gray',
+    borderBottomWidth: 1,
+    marginVertical: 2,
+    fontSize: 20,
+  },
+  button: {
     borderRadius: 50,
-    paddingLeft: 15,
-    fontSize: 20,
-  },
-  newConsumerInput: {
-    height: 60,
-    color: '#fff',
-    borderColor: 'gray',
-    borderBottomWidth: 1,
-    margin: 5,
-    fontSize: 20,
-  },
-  halfSizeInput: {
-    height: 60,
-    color: '#fff',
-    borderColor: 'gray',
-    borderBottomWidth: 1,
-    margin: 5,
-    width: '45%',
-    fontSize: 20,
+    height: 60, // Increase button height
+    marginHorizontal: 5,
+    justifyContent: 'center',
   },
 });
