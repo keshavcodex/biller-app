@@ -61,6 +61,7 @@ const Home = () => {
       <TextInput
         style={styles.input}
         placeholder="Search..."
+        placeholderTextColor={'#fff'}
         value={searchTerm}
         onChangeText={handleSearch}
         keyboardType="numeric"

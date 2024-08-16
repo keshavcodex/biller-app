@@ -76,7 +76,7 @@ function App(): React.JSX.Element {
         <Home />
       </ScrollView>
       <View style={{marginBottom: 5, alignSelf: 'center'}}>
-        <Text>Made with 💛 by Keshav</Text>
+        <Text style={{color: '#c9c8c5'}}>Made with 💛 by Keshav</Text>
       </View>
     </SafeAreaView>
   );

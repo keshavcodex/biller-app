@@ -12,7 +12,7 @@ const MyComponent = ({consumers}: any) => {
             {consumer?.name?.length > 0 && (
               <Text style={styles.infoText}>Name: {consumer?.name}</Text>
             )}
-            <Text style={styles.infoText}>Bill: {consumer?.bill}</Text>
+            <Text style={styles.infoText}>Reading: {consumer?.bill}</Text>
             <Text style={styles.infoText}>LK: {consumer?.LK}</Text>
           </View>
         </View>

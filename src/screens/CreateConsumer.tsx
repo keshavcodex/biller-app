@@ -54,7 +54,7 @@ const CreateConsumer = () => {
           }}>
           <TextInput
             style={styles.halfInput}
-            placeholder="Bill"
+            placeholder="Reading"
             value={bill}
             onChangeText={setBill}
             keyboardType="numeric"
