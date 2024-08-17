@@ -75,7 +75,7 @@ const CreateConsumer = ({consumerState, setConsumerState}: any) => {
             onChangeText={LK =>
               setConsumerState(prevState => ({...prevState, LK}))
             }
-            keyboardType="numeric"
+            keyboardType="default"
           />
         </View>
         <TextInput
