@@ -1,30 +1,35 @@
-import {View, Text, StyleSheet} from 'react-native';
-import React, {useState} from 'react';
+import {View, StyleSheet} from 'react-native';
+import React from 'react';
 import {ActivityIndicator, Button, TextInput} from 'react-native-paper';
 import {addConsumer} from '../services/apiActions';
 
-const CreateConsumer = () => {
-  const [conId, setConId] = useState('');
-  const [bill, setBill] = useState('');
-  const [LK, setLK] = useState('');
-  const [name, setName] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-
+const CreateConsumer = ({consumerState, setConsumerState}: any) => {
   const handleCreateConsumer = async () => {
-    setIsLoading(true);
-    const body = {conId, bill, LK, name};
+    setConsumerState(prevState => ({...prevState, isLoading: true}));
+    const body = {
+      conId: consumerState.conId,
+      bill: consumerState.bill,
+      LK: consumerState.LK,
+      name: consumerState.name,
+      billMonth: consumerState.billMonth,
+    };
     try {
       const response = await addConsumer(body);
       if (response?.data) {
-        setConId('');
-        setBill('');
-        setLK('');
-        setName('');
+        setConsumerState({
+          conId: '',
+          bill: '',
+          LK: '',
+          name: '',
+          billMonth: '',
+          isLoading: false,
+        });
+      } else {
+        setConsumerState(prevState => ({...prevState, isLoading: false}));
       }
-      setIsLoading(false);
     } catch (error) {
       console.log(error);
-      setIsLoading(false);
+      setConsumerState(prevState => ({...prevState, isLoading: false}));
     }
   };
 
@@ -41,8 +46,10 @@ const CreateConsumer = () => {
         <TextInput
           style={styles.input}
           placeholder="Consumer Id"
-          value={conId}
-          onChangeText={setConId}
+          value={consumerState.conId}
+          onChangeText={conId =>
+            setConsumerState(prevState => ({...prevState, conId}))
+          }
           keyboardType="numeric"
         />
         <View
@@ -55,27 +62,42 @@ const CreateConsumer = () => {
           <TextInput
             style={styles.halfInput}
             placeholder="Reading"
-            value={bill}
-            onChangeText={setBill}
+            value={consumerState.bill}
+            onChangeText={bill =>
+              setConsumerState(prevState => ({...prevState, bill}))
+            }
             keyboardType="numeric"
           />
           <TextInput
             style={styles.halfInput}
             placeholder="LK"
-            value={LK}
-            onChangeText={setLK}
+            value={consumerState.LK}
+            onChangeText={LK =>
+              setConsumerState(prevState => ({...prevState, LK}))
+            }
             keyboardType="numeric"
           />
         </View>
         <TextInput
           style={styles.input}
+          placeholder="Bill Month"
+          value={consumerState.billMonth}
+          onChangeText={billMonth =>
+            setConsumerState(prevState => ({...prevState, billMonth}))
+          }
+          keyboardType="numeric"
+        />
+        <TextInput
+          style={styles.input}
           placeholder="Name"
-          value={name}
-          onChangeText={setName}
+          value={consumerState.name}
+          onChangeText={name =>
+            setConsumerState(prevState => ({...prevState, name}))
+          }
           keyboardType="default"
         />
       </View>
-      {isLoading ? (
+      {consumerState.isLoading ? (
         <ActivityIndicator animating={true} color={'#7154bf'} size={40} />
       ) : (
         <Button

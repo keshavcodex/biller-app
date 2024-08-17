@@ -13,6 +13,14 @@ const Home = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [serverUp, setServerUp] = useState(false);
   const [consumers, setConsumers] = useState<any>([]);
+  const [consumerState, setConsumerState] = useState({
+    conId: '',
+    bill: '',
+    LK: '',
+    name: '',
+    billMonth: '',
+    isLoading: false,
+  });
 
   useEffect(() => {
     initiateApplication();
@@ -43,7 +51,7 @@ const Home = () => {
     }
   };
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={styles.container} keyboardShouldPersistTaps="always">
       <View
         style={{
           flex: 1,
@@ -64,13 +72,15 @@ const Home = () => {
         placeholderTextColor={'#fff'}
         value={searchTerm}
         onChangeText={handleSearch}
-        keyboardType="numeric"
       />
 
       {searchTerm.length > 0 && consumers.length > 0 ? (
         <ConsumerList consumers={consumers} />
       ) : (
-        <CreateConsumer />
+        <CreateConsumer
+          consumerState={consumerState}
+          setConsumerState={setConsumerState}
+        />
       )}
     </ScrollView>
   );

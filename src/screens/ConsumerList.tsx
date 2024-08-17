@@ -10,9 +10,10 @@ const MyComponent = ({consumers}: any) => {
           </View>
           <View style={styles.infoContainer}>
             {consumer?.name?.length > 0 && (
-              <Text style={styles.infoText}>Name: {consumer?.name}</Text>
+              <Text style={(styles.infoText, {color: '#94dfff'})}>Name: {consumer?.name}</Text>
             )}
             <Text style={styles.infoText}>Reading: {consumer?.bill}</Text>
+            <Text style={styles.infoText}>Bill Month: {consumer?.billMonth}</Text>
             <Text style={styles.infoText}>LK: {consumer?.LK}</Text>
           </View>
         </View>
