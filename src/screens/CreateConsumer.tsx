@@ -70,7 +70,7 @@ const CreateConsumer = ({consumerState, setConsumerState}: any) => {
           />
           <TextInput
             style={styles.halfInput}
-            placeholder="LK"
+            placeholder="Status"
             value={consumerState.LK}
             onChangeText={LK =>
               setConsumerState(prevState => ({...prevState, LK}))
