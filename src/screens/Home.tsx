@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import {View, TextInput, StyleSheet, Text, ScrollView} from 'react-native';
+import {View, StyleSheet, Text, ScrollView} from 'react-native';
+import {TextInput} from 'react-native-paper';
 import ConsumerList from './ConsumerList';
 import {checkServer, getConsumers} from '../services/apiServices';
 import {Button} from 'react-native-paper';
@@ -8,17 +9,19 @@ import {HomeRepairServiceRounded} from '@mui/icons-material';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {Box} from '@mui/material';
 import CreateConsumer from './CreateConsumer';
+import { dateFormater, longDateFormater, monthDayFormatter, monthYearFormatter } from '../utils/helper';
 
 const Home = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [serverUp, setServerUp] = useState(false);
   const [consumers, setConsumers] = useState<any>([]);
+
   const [consumerState, setConsumerState] = useState({
     conId: '',
     bill: '',
     LK: '',
     name: '',
-    billMonth: '',
+    billMonth: monthYearFormatter(new Date()),
     isLoading: false,
   });
 
@@ -68,10 +71,17 @@ const Home = () => {
 
       <TextInput
         style={styles.input}
+        mode="flat"
+        activeUnderlineColor="#333"
         placeholder="Search..."
-        placeholderTextColor={'#fff'}
         value={searchTerm}
         onChangeText={handleSearch}
+        right={
+          <TextInput.Icon
+            icon="close-circle"
+            onPress={() => setSearchTerm('')}
+          />
+        }
       />
 
       {searchTerm.length > 0 && consumers.length > 0 ? (
@@ -92,11 +102,9 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 60,
-    color: '#fff',
-    borderColor: 'gray',
-    borderWidth: 1,
-    borderRadius: 50,
-    paddingLeft: 15,
+    borderRadius: 40,
+    borderTopLeftRadius: 40,
+    borderTopRightRadius: 40,
     fontSize: 20,
   },
 });

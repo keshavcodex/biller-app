@@ -72,6 +72,7 @@ function App(): React.JSX.Element {
       />
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
+         keyboardShouldPersistTaps="always"
         style={backgroundStyle}>
         <Home />
       </ScrollView>

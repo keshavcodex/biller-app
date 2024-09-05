@@ -34,3 +34,11 @@ export const monthDayFormatter = (text: string) => {
   });
   return formattedDate;
 };
+export const monthYearFormatter = (text: string) => {
+  // 1.24 , 2.24, 3.24 ...
+  const date = new Date(text);
+  const month = date.getMonth() + 1;
+  const year = date.getFullYear().toString().slice(-2);
+
+  return `${month}.${year}`;
+};

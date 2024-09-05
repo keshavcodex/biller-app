@@ -1,13 +1,28 @@
-import {View, Text, StyleSheet} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Pressable,
+  Clipboard,
+  ToastAndroid,
+} from 'react-native';
 
 const MyComponent = ({consumers}: any) => {
+  const copyToClipboard = text => {
+    if (text != '') {
+      Clipboard.setString(text);
+      ToastAndroid.show('Id copied', ToastAndroid.TOP);
+    }
+  };
   return (
     <View style={styles.container}>
       {consumers.map((consumer: any, index: string) => (
         <View key={index} style={styles.consumerContainer}>
-          <View style={styles.header}>
+          <Pressable
+            onLongPress={() => copyToClipboard(consumer?.conId)}
+            style={styles.header}>
             <Text style={styles.conIdText}>Id: {consumer?.conId}</Text>
-          </View>
+          </Pressable>
           <View style={styles.infoContainer}>
             {consumer?.name?.length > 0 && (
               <Text style={{color: '#94dfff', fontSize: 17}}>
@@ -35,7 +50,7 @@ const MyComponent = ({consumers}: any) => {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10,
+    paddingVertical: 10,
   },
   consumerContainer: {
     marginBottom: 10,
