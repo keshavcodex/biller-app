@@ -5,9 +5,10 @@
  * @format
  */
 
-import React from 'react';
+import React, {useState} from 'react';
 import type {PropsWithChildren} from 'react';
 import {
+  RefreshControl,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -58,11 +59,15 @@ function Section({children, title}: SectionProps): React.JSX.Element {
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
+  // const [refreshing, setRefreshing] = useState(false);
 
   const backgroundStyle = {
     backgroundColor: Colors.darker,
     flex: 1,
   };
+  // const onRefresh = React.useCallback(() => {
+  //   setRefreshing(true);
+  // }, []);
 
   return (
     <SafeAreaView style={backgroundStyle}>
@@ -70,12 +75,15 @@ function App(): React.JSX.Element {
         barStyle={'light-content'}
         backgroundColor={backgroundStyle.backgroundColor}
       />
-      <ScrollView
+      {/* <ScrollView
         contentInsetAdjustmentBehavior="automatic"
-         keyboardShouldPersistTaps="always"
-        style={backgroundStyle}>
+        keyboardShouldPersistTaps="always"
+        style={backgroundStyle}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }>
+      </ScrollView> */}
         <Home />
-      </ScrollView>
       <View style={{marginBottom: 5, alignSelf: 'center'}}>
         <Text style={{color: '#c9c8c5'}}>Made with 💛 by Keshav</Text>
       </View>

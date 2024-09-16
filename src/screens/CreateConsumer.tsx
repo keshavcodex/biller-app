@@ -2,26 +2,27 @@ import {View, StyleSheet} from 'react-native';
 import React from 'react';
 import {ActivityIndicator, Button, TextInput} from 'react-native-paper';
 import {addConsumer} from '../services/apiActions';
+import { monthYearFormatter } from '../utils/helper';
 
 const CreateConsumer = ({consumerState, setConsumerState}: any) => {
   const handleCreateConsumer = async () => {
     setConsumerState(prevState => ({...prevState, isLoading: true}));
     const body = {
       conId: consumerState.conId,
-      bill: consumerState.bill,
-      LK: consumerState.LK,
+      reading: consumerState.reading,
+      status: consumerState.status,
       name: consumerState.name,
-      billMonth: consumerState.billMonth,
+      readingMonth: consumerState.readingMonth,
     };
     try {
       const response = await addConsumer(body);
       if (response?.data) {
         setConsumerState({
           conId: '',
-          bill: '',
-          LK: '',
+          reading: '',
+          status: '',
           name: '',
-          billMonth: '',
+          readingMonth: monthYearFormatter(new Date()),
           isLoading: false,
         });
       } else {
@@ -62,28 +63,28 @@ const CreateConsumer = ({consumerState, setConsumerState}: any) => {
           <TextInput
             style={styles.halfInput}
             placeholder="Reading"
-            value={consumerState.bill}
-            onChangeText={bill =>
-              setConsumerState(prevState => ({...prevState, bill}))
+            value={consumerState.reading}
+            onChangeText={reading =>
+              setConsumerState(prevState => ({...prevState, reading}))
             }
             keyboardType="numeric"
           />
           <TextInput
             style={styles.halfInput}
             placeholder="Status"
-            value={consumerState.LK}
-            onChangeText={LK =>
-              setConsumerState(prevState => ({...prevState, LK}))
+            value={consumerState.status}
+            onChangeText={status =>
+              setConsumerState(prevState => ({...prevState, status}))
             }
             keyboardType="default"
           />
         </View>
         <TextInput
           style={styles.input}
-          placeholder="Bill Month"
-          value={consumerState.billMonth}
-          onChangeText={billMonth =>
-            setConsumerState(prevState => ({...prevState, billMonth}))
+          placeholder="Reading Month"
+          value={consumerState.readingMonth}
+          onChangeText={readingMonth =>
+            setConsumerState(prevState => ({...prevState, readingMonth}))
           }
           keyboardType="numeric"
         />

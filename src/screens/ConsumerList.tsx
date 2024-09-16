@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 
 const MyComponent = ({consumers}: any) => {
-  const copyToClipboard = text => {
+  const copyToClipboard = (text: string) => {
     if (text != '') {
       Clipboard.setString(text);
       ToastAndroid.show('Id copied', ToastAndroid.TOP);
@@ -29,18 +29,31 @@ const MyComponent = ({consumers}: any) => {
                 Name: {consumer?.name}
               </Text>
             )}
-            <Text style={styles.infoText}>Reading: {consumer?.bill}</Text>
-            {consumer?.billMonth?.length > 0 && (
+            <Text style={styles.infoText}>Reading: {consumer?.reading}</Text>
+            {consumer?.readingMonth?.length > 0 && (
               <Text style={styles.infoText}>
-                Bill Month: {consumer?.billMonth}
+                Month: {consumer?.readingMonth}
               </Text>
             )}
-            <Text style={styles.infoText}>
-              Status:{' '}
-              {typeof consumer?.LK === 'number' || /^\d+$/.test(consumer?.LK)
-                ? `${consumer.LK} LK`
-                : consumer.LK}
-            </Text>
+            {consumer?.status?.length > 0 && (
+              <Text style={styles.infoText}>
+                Status:{' '}
+                {typeof consumer?.status === 'number' ||
+                /^\d+$/.test(consumer?.status)
+                  ? `${consumer.status} LK`
+                  : consumer.status}
+              </Text>
+            )}
+            {consumer?.category?.length > 0 && (
+              <Text style={styles.infoText}>
+                Category: {consumer?.category}
+              </Text>
+            )}
+            {consumer?.book?.length > 0 && (
+              <Text style={styles.infoText}>
+                Book: {consumer?.book}
+              </Text>
+            )}
           </View>
         </View>
       ))}
@@ -75,7 +88,7 @@ const styles = StyleSheet.create({
   },
   infoText: {
     color: '#fff',
-    fontSize: 20,
+    fontSize: 18,
   },
 });
 

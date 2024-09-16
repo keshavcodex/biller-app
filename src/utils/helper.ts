@@ -34,7 +34,7 @@ export const monthDayFormatter = (text: string) => {
   });
   return formattedDate;
 };
-export const monthYearFormatter = (text: string) => {
+export const monthYearFormatter = (text: any) => {
   // 1.24 , 2.24, 3.24 ...
   const date = new Date(text);
   const month = date.getMonth() + 1;
@@ -42,3 +42,5 @@ export const monthYearFormatter = (text: string) => {
 
   return `${month}.${year}`;
 };
+
+export const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms*1000));

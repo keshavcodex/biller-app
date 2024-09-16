@@ -10,9 +10,6 @@ const getService = async (route: string) => {
   }
 };
 
-export const getConsumers = async (id: String) => {
-  return await getService(`${baseUrl}/getConsumer/${id}`);
-};
 export const checkServer = async () => {
   return await getService(`${baseUrl}/`);
 };
